@@ -4,6 +4,7 @@ import { type TaskCardProps } from "../libs/Todolist";
 import { useState } from "react";
 
 function App() {
+  
   const [tasks, setTasks] = useState<TaskCardProps[]>([
     {
       id: "1",
@@ -39,18 +40,25 @@ function App() {
 
   // Define the function with proper type
   const toggleDoneTask = (taskId: string) => {
-    const newTasks = tasks.map((todo: TaskCardProps) =>
-      todo.id === taskId ? { ...todo, isDone: !todo.isDone } : todo
+    const newTasks = tasks.map((todo: TaskCardProps) => 
+      todo.id === taskId ? { ...todo, isDone: !todo.isDone } : todo 
+    //isDone: !todo.isDone
+// คือการ "สลับค่า" ของ isDone
+//  isDone === false เปลี่ยนเป็น true
+// isDone === true เปลี่ยนเป็น false
     );
     setTasks(newTasks);
+
   };
 
+  //taskตัวแทนของแต่ละงานในลูป  tasksงานทั้งหมด (array) filterเลือกเฉพาะงานที่เสร็จแล้ว
+  const doneTasksCount = tasks.filter((task) => task.isDone).length;
   return (
     <div className="col-12 m-2 p-0">
       <div className="container text-center">
         <h2>Todo List</h2>
-        <span className="m-2">All : () Done : ()</span>
-        {/* Modal Component */}
+        <span className="m-2">All : ({doneTasksCount}) Done : ({tasks.length}) </span>
+        {/* Modal Component  */}
         <button
           type="button"
           className="btn btn-primary my-3"
